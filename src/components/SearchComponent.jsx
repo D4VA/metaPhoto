@@ -26,6 +26,7 @@ const SearchComponent = () => {
 
   useEffect(() => {
     fetchData(currentPage, isSearchMode ? query : '');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, isSearchMode, query]);
 
   const fetchData = async (page, searchQuery) => {

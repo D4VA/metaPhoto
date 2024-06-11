@@ -1,4 +1,5 @@
 import { Pagination } from "@nextui-org/react";
+import PropTypes from "prop-types";
 
 export const PaginationComponent = ({ totalPages, currentPage, onPageChange }) => {
   const handlePageChange = (page) => {
@@ -16,4 +17,10 @@ export const PaginationComponent = ({ totalPages, currentPage, onPageChange }) =
       />
     </div>
   );
+};
+
+PaginationComponent.propTypes = {
+  totalPages: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 };
