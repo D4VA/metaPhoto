@@ -24,7 +24,7 @@ const SearchComponent = () => {
 
   const fetchData = async (page, searchQuery) => {
     const offset = (page - 1) * itemsPerPage;
-    let url = `https://meta-photo-n5z4mr87u-d4vas-projects.vercel.app/api/photos?limit=${itemsPerPage}&offset=${offset}`;
+    let url = `https://meta-photo-api.vercel.app/api/photos?limit=${itemsPerPage}&offset=${offset}`;
 
     inputs.forEach(input => {
       if (input.value && input.value.trim() !== '') {
