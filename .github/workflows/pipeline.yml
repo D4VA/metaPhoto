@@ -30,12 +30,6 @@ jobs:
       - name: Run ESLint
         run: npm run eslint
 
-      - name: Build React app with Vite
-        run: npm run build --prefix frontend
-
-      - name: Build Node.js app
-        run: npm run build --prefix backend
-
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
