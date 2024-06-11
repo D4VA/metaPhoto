@@ -57,7 +57,6 @@ const SearchComponent = () => {
       }
       const result = await response.json();
 
-      console.log(result);
       setData(result.data);
       setError(null);
       const totalPages = Math.ceil(result.total / itemsPerPage);
