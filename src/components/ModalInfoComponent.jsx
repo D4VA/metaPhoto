@@ -1,7 +1,34 @@
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure
+} from "@nextui-org/react";
 
-export default function ModalInfoComponent() {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+export default function ModalInfoComponent(item) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const renderObject = (obj) => {
+    return (
+      <div>
+        {Object.entries(obj).map(([key, value]) => (
+          <div key={key}>
+            {typeof value === 'object' ? (
+              <div>
+                <strong>{key}</strong>
+                {renderObject(value)}
+              </div>
+            ) : (
+              <div>{`${key}: ${value}`}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -10,37 +37,36 @@ export default function ModalInfoComponent() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Album Information</ModalHeader>
               <ModalBody>
-                <p> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+              <div>
+                <div><strong>Photo Information</strong></div>
+                  {Object.entries(item).map(([key, value]) => (
+                    <div
+                      key={key}
+                      className={'ml-2'}
+                    >
+                      {typeof value === 'object' ? (
+                        renderObject(value)
+                      ) : (
+                        <div
+                        className={'ml-4'}
+                        >
+                          {`${key}: ${value}`}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
               </ModalFooter>
             </>
           )}
-        </ModalContent>
+        </ModalContent>      
       </Modal>
     </>
   );
