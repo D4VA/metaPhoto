@@ -12,7 +12,7 @@ Esta es una pequeña aplicación desarrollada en Node.js con Vite, utilizando Re
 1. Clona este repositorio en tu máquina local.
 
     ```
-    git clone <repositorio>
+    git clone https://github.com/D4VA/metaPhoto.git
     ```
 
 2. Accede al directorio del proyecto.
