@@ -1,0 +1,48 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.13.1"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run eslint
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Run Security Audit
+        run: npm audit --audit-level=high
+
+      - name: Build React app with Vite
+        run: npm run build --prefix frontend
+
+      - name: Build Node.js app
+        run: npm run build --prefix backend
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel --prod --token=$VERCEL_TOKEN --yes
