@@ -94,7 +94,9 @@ const SearchComponent = () => {
       <h3 className={'text-4xl font-bold m-auto mb-5 max-w-fit'}>
         Photo Search
       </h3>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div 
+        className='flex items-center gap-3 flex-wrap sm:flex-nowrap'
+      >
         {inputs.map((input, index) => (
           <Input
             key={index}
