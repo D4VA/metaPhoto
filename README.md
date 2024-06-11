@@ -4,7 +4,7 @@ Esta es una pequeña aplicación desarrollada en Node.js con Vite, utilizando Re
 
 ## Requisitos
 
-- Node.js >= 20.13.1
+- Node.js >= 20.13
 - React >= 18.x
 
 ## Instalación
