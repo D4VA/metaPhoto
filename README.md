@@ -6,6 +6,8 @@ Esta es una pequeña aplicación desarrollada en Node.js con Vite, utilizando Re
 
 - Node.js >= 20.13
 - React >= 18.x
+- tailwind > 3.4
+- Framer Motion > 4
 
 ## Instalación
 
