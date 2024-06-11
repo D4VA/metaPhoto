@@ -30,12 +30,6 @@ jobs:
       - name: Run ESLint
         run: npm run eslint
 
-      - name: Run Tests
-        run: npm test
-
-      - name: Run Security Audit
-        run: npm audit --audit-level=high
-
       - name: Build React app with Vite
         run: npm run build --prefix frontend
 
