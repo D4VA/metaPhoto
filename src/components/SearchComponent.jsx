@@ -30,7 +30,7 @@ const SearchComponent = () => {
 
   const fetchData = async (page, searchQuery) => {
     const offset = (page - 1) * itemsPerPage;
-    let url = `http://localhost:3000/api/photos?limit=${itemsPerPage}&offset=${offset}`;
+    let url = `https://meta-photo-n5z4mr87u-d4vas-projects.vercel.app/api/photos?limit=${itemsPerPage}&offset=${offset}`;
 
     inputs.forEach(input => {
       if (input.value && input.value.trim() !== '') {
@@ -42,17 +42,27 @@ const SearchComponent = () => {
       url += `&title=${encodeURIComponent(searchQuery)}`;
     }
 
+    console.log('url', url)
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
       const result = await response.json();
+
+      console.log(result);
       setData(result.data);
       setError(null);
       const totalPages = Math.ceil(result.total / itemsPerPage);
       setTotalPages(totalPages);
     } catch (err) {
+      console.log(err)
       setError(err.message);
     }
   };
