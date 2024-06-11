@@ -1,18 +1,11 @@
 import { useState, useEffect } from 'react';
-import {
-  Input,
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  Image
-} from '@nextui-org/react';
+import SearchForm from './SearchForm';
+import SearchResults from './SearchResults';
 import { PaginationComponent } from './PaginationComponent';
-import ModalInfoComponent from './ModalInfoComponent';
 
 const SearchComponent = () => {
   const [inputs, setInputs] = useState([
-    { name: 'Photo title',key: 'title', value: '' },
+    { name: 'Photo title', key: 'title', value: '' },
     { name: 'Album title', key: 'album.title', value: '' },
     { name: 'album user email', key: 'album.user.email', value: '' }
   ]);
@@ -26,7 +19,7 @@ const SearchComponent = () => {
 
   useEffect(() => {
     fetchData(currentPage, isSearchMode ? query : '');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, isSearchMode, query]);
 
   const fetchData = async (page, searchQuery) => {
@@ -42,8 +35,6 @@ const SearchComponent = () => {
     if (searchQuery) {
       url += `&title=${encodeURIComponent(searchQuery)}`;
     }
-
-    console.log('url', url)
 
     try {
       const response = await fetch(url, {
@@ -93,52 +84,16 @@ const SearchComponent = () => {
       <h3 className={'text-4xl font-bold m-auto mb-5 max-w-fit'}>
         Photo Search
       </h3>
-      <div 
-        className='flex items-center gap-3 flex-wrap sm:flex-nowrap'
-      >
-        {inputs.map((input, index) => (
-          <Input
-            key={index}
-            label={input.name}
-            placeholder={`Enter ${input.name}`}
-            value={input.value}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-          />
-        ))}
-
-        <Button auto onClick={handleSearch}>
-          Search
-        </Button>
-        <Button auto onClick={handleClearFilter}>
-          Clear Filters
-        </Button>
-      </div>
+      <SearchForm
+        inputs={inputs}
+        handleInputChange={handleInputChange}
+        handleSearch={handleSearch}
+        handleClearFilter={handleClearFilter}
+      />
 
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className={'justify-center mt-5'} style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-        {data.map((item) => (
-          <Card className="py-4 max-w-64 justify-between" key={item.id}>
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-              <h4 className="font-bold text-large"><span>Album user name: </span>{item.album.user.name}</h4>
-              <p className="text-tiny"><span className="font-bold">Photo title: </span>{item.title}</p>
-              <small className="text-default-500"><span className="font-bold">Album title: </span>{item.album.title}</small>
-              <small className="text-default-500"><span className="font-bold">Album user email: </span>{item.album.user.email}</small>
-            </CardHeader>
-            <CardBody className="overflow-visible py-2">
-              <Image
-                alt="Card background"
-                className="object-cover rounded-xl"
-                src={item.url}
-                width={270}
-              />
-            </CardBody>
-            <ModalInfoComponent
-              item={item}
-            />
-          </Card>
-        ))}
-      </div>
+      <SearchResults data={data} />
 
       <PaginationComponent
         totalPages={totalPages}
